@@ -21,41 +21,40 @@ function selectAllRecettes($pdo)
     }
 }
 
+function deleteHistoriqueRecetteFromUser($dbh)
+{
+    try {
+        $query = 'delete from recetteHistorique where recetteId in (select recetteId from recette where userId = :userId)';
+        $deleteAllRecetteFromId = $dbh->prepare($query);
+        $deleteAllRecetteFromId->execute([
+            'userId' => $_SESSION["user"]->id
+        ]);
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die($message);
+    }
+}
+
 function deleteAllRecetteFromUser($pdo)
 {
     try {
-        $query = 'delete from recette where utilisateurId = :utilisateurId';
+        $query = 'delete from recette where userId = :userId';
         $deleteAllRecetteFromId = $pdo->prepare($query);
         $deleteAllRecetteFromId->execute([
-            'utilisateurId' => $_SESSION['user']->id
+            'userId' => $_SESSION['user']->id
         ]);
     } catch (PDOException $e) {
         $message = $e->getMessage();
         die($message);
     }
 }
-
-function deleteOptionsRecetteFromUser($dbh)
-{
-    try {
-        $query = 'delete from option_recette where recetteId in (select recetteId from recette where utilisateurId = :utilisateurId)';
-        $deleteAllRecetteFromId = $dbh->prepare($query);
-        $deleteAllRecetteFromId->execute([
-            'utilisateurId' => $_SESSION['user']->id
-        ]);
-    } catch (PDOException $e) {
-        $message = $e->getMessage();
-        die($message);
-    }
-}
-
 function selectMyRecette($pdo)
 {
     try {
-        $query = 'select * from recette where utilisateurId = :utilisateurId';
+        $query = 'select * from recette where userId = :userId';
         $selectRecette = $pdo->prepare($query);
         $selectRecette->execute([
-            'utilisateurId' => $_SESSION['user']->id
+            'userId' => $_SESSION['user']->id
         ]);
         $recette = $selectRecette->fetchAll();
         return $recette;
@@ -65,65 +64,19 @@ function selectMyRecette($pdo)
     }
 }
 
-function selectAllOptions($pdo)
-{
-    try {
-        $query = 'SELECT * FROM optionrecette';
-        $selectOptions = $pdo->prepare($query);
-        $selectOptions->execute();
-        $options = $selectOptions->fetchAll();
-        return $options;
-    } catch (PDOException $e) {
-        $message = $e->getMessage();
-        die($message);
-    }
-}
 
 function createRecette($pdo)
 {
     try {
-        $query = 'insert into recette (recetteNom, recetteImage, utilisateurId)
-        values (:recetteNom, :recetteImage, :utilisateurId)';
+        $query = 'insert into recette (recetteNom, recetteImage, userId)
+        values (:recetteNom, :recetteImage, :userId)';
         $addPlat = $pdo->prepare($query);
         $addPlat->execute([
             'recetteNom' => $_POST['nom'],
             'recetteImage' => $_POST['image'],
-            'utilisateurId' => $_SESSION['user']->id
+            'userId' => $_SESSION['user']->id
         ]);
     } catch (PDOException $e) {
-        $message = $e->getMessage();
-        die($message);
-    }
-}
-
-function ajouterOptionRecette ($pdo, $recetteId, $optionId)
-{
-    try {
-        $query='insert into option_recette (recetteId, optionrecetteId) values (:recetteId, :optionrecetteId)';
-        $deleteAllRecettesFromId = $pdo->prepare($query);
-        $deleteAllRecettesFromId->execute([
-            'recetteId' => $recetteId,
-            'optionrecetteId' => $optionId
-        ]);
-    } catch (\PDOException $e) {
-        $message = $e->getMessage();
-        die($message);
-    }
-}
-
-function selectOptionsActiveRecette($pdo)
-{
-    try{
-        $query = "select * from recette where recette in (select recette from recette where recetteId = :recetteId);";
-                    
-        $selectRecette = $pdo->prepare($query);
-        $selectRecette->execute([
-            "recetteId" => $_GET["Recette"]
-        ]);
-        $option = $selectRecette->fetch();
-        return $option;
-    } catch(PDOException $e) 
-    {
         $message = $e->getMessage();
         die($message);
     }

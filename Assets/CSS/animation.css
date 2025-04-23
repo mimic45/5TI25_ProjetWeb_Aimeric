@@ -7,7 +7,7 @@
 @media screen and (min-width: 1200px) {
 
     ul li:hover{
-        background-color: rgb(92, 131, 116);
+        background-color: green;
         border-radius: 100em;
     }
 
@@ -17,15 +17,15 @@
 
     .btn {
         transform: scale(1);
-        /*transition-property: transform;
-        transition-duration: 400ms;*/
+        transition-property: transform;
+        transition-duration: 400ms;
         transition: transform 1000ms;
         transition-timing-function: ease-in-out;
     }
     
     .btn-page:hover {
         transform: scale(1.3);
-        background-color: rgb(215, 195, 234);
+        background-color: rgb(155, 69, 236);
         color: black;
         transition-delay: 150ms;
     }

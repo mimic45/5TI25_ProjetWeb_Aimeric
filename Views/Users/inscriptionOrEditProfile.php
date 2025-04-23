@@ -1,3 +1,5 @@
+<?php if (isset($_SESSION['user'])) : ?>value="<?=$_SESSION['user']->userNom ?>" <?php endif ?>
+
 <div class="flex space-evenly wrap">
     <form method="post" action="">
         <fieldset>

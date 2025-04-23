@@ -42,18 +42,12 @@ elseif ($uri === '/updateProfil') {
         }
     }
     $title = 'Mise à jour du profil';
-    $template = "Views/Users/inscriptionOrEditProfile.php";
+    $template = "Views/Users/inscriptionOrEditProfile.php"; 
     require_once('Views/base.base');
 }
 
-
-elseif ($uri === "/deconnexion") {
-    session_destroy();
-    header('location:/');
-}
-
 elseif ($uri === "/deleteProfil") {
-    deleteOptionsrecetteFromUser($pdo);
+    deleteHistoriqueRecetteFromUser($pdo);
     deleteAllrecetteFromUser($pdo);
     deleteUser($pdo);
     header('location:/deconnexion');

@@ -3,12 +3,14 @@
 <!-- !!! corriger le chemin de images ! -->
 <?php if ($uri === "/mesRecettes") : ?>
     <h1>Vos recettes</h1>
-<?php else :?>
-<h1>Liste des recettes répertoriées</h1>
+<?php else : ?>
+    <h1>Liste des recettes répertoriées</h1>
 <?php endif ?>
 
 <?php if (isset($_SESSION["user"])) : ?>
-    <a href="createRecette">Ajouter une recette</a>
+    <a href="../Views/Components/recette/recette.php">Ajouter une recette</a>
+    <br><a href="../Views/Components/recette/recette.php">Supprimer une recette</a>
+    <br><a href="connexion">Supprimer votre compte</a>
 <?php endif ?>
 
 <div class="flexible wrap space-around">
@@ -25,6 +27,17 @@
                         <p><a href="deleteRecette?recetteId=<?= $recette->recetteId ?>">Supprimer la recette</a></p>
                         <p><a href="updateRecette?recetteId=<?= $recette->recetteId ?>">Modifier la recette</a></p>
                     <?php endif ?>
+                </div>
+            </div>
+        </div>
+        <div class="border card">
+            <h2 class="center">Gateau au chocolat</h2>
+            <div>
+                <div class="flexible blocImageRecette">
+                    <img class="gateau_chocolat" src="../../Assets/Images/gateau-au-chocolat-de-cyril-lignac.jpeg" alt="image soupe tomate">
+                </div>
+                <div class="center">
+                    <a href="https://www.marmiton.org/recettes/recette_gateau-au-chocolat-fondant-rapide_166352.aspx" class="btn btn-page">Voir la recette</a>
                 </div>
             </div>
         </div>

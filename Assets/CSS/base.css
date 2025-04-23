@@ -3,9 +3,9 @@ body{
 }
 
 header {
-    background-color: rgb(24, 61, 61);
+    background-color: rgb(22, 95, 16);
     margin: 0;
-    padding: 10px;
+    padding: 5px;
 }
 
 ul {
@@ -17,11 +17,11 @@ ul li {
 }
 
 ul li a {
-    color: white;
+    color: rgb(234, 210, 210);
     font-size: larger;
 }
 .imageMenu {
-    color: azure;
+    color: rgb(207, 219, 219);
     cursor: pointer;
 }
 
@@ -35,7 +35,7 @@ main {
 }
 
 .border {
-    border: 1px solid black;
+    border: 1.5px solid black;
 }
 
 .card {
@@ -54,7 +54,7 @@ main {
 }
 
 h1 {
-    color: rgb(164, 41, 19);
+    color: rgb(221, 60, 32);
     font-size: 50px;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: underline;
@@ -62,10 +62,10 @@ h1 {
 }
 
 h2 {
-    color: rgb(32, 218, 23);
+    color: rgb(47, 150, 41);
     font-size: 30px;
     font-family: 'Arial', Times, serif;
-    /*text-decoration: wavy underline overline;*/
+    text-decoration: wavy underline;
 }
 
 img {
@@ -126,6 +126,7 @@ ol li {
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 .blocAffichage {

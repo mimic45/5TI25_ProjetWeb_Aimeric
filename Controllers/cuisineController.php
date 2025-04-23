@@ -13,12 +13,10 @@ elseif ($uri === '/createRecette') {
         $recetteId = $pdo->lastInsertId();
         for ($i = 0; $i < count($_POST["options"]); $i++) {
             $optionRecetteId = $_POST["options"] [$i];
-            ajouterOptionRecette($pdo, $recetteId, $optionRecetteId);
         }
         header("location:/mesRecettes");
-    }  
-    $options = selectAllOptions($pdo);
+    }
     $title = "Ajout d'une recette";
-    $template = "Views/User/editOrCreateRecette.php";
+    $template = "Views/Component/recette/recette.php";
     require_once("Views/base.php");
 }

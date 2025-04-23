@@ -80,7 +80,7 @@ function updateSession($pdo)
 function DeleteUser($pdo)
 {
     try {
-        $query = 'delete from utilisateur where id = :id';
+        $query = 'delete from utilisateur where userid = :userid';
         $delUser = $pdo->prepare($query);
         $delUser->execute([
             'id' => $_SESSION['user']->id
