@@ -1,0 +1,32 @@
+<!-- corps de la page d'accueil qui prendar place dans le main de base.php -->
+
+<!-- !!! corriger le chemin de images ! -->
+<?php if ($uri === "/mesRecettes") : ?>
+    <h1>Vos recettes</h1>
+<?php else :?>
+<h1>Liste des recettes répertoriées</h1>
+<?php endif ?>
+
+<?php if (isset($_SESSION["user"])) : ?>
+    <a href="createRecette">Ajouter une recette</a>
+<?php endif ?>
+
+<div class="flexible wrap space-around">
+    <?php foreach ($recettes as $recette) : ?>
+        <div class="border card">
+            <h2 class="center"><?= $recette->recetteNom ?></h2>
+            <div>
+                <div class="flexible blocImageRecette">
+                    <img class="soupe_tomate" src="../../Assets/Images/photo_soupe.jpg" alt="image soupe tomate">
+                </div>
+                <div class="center">
+                    <a href="https://www.marmiton.org/recettes/recette_soupe-tomate-rapide_94528.aspx" class="btn btn-page">Voir la recette</a>
+                    <?php if ($uri === "/mesRecettes") : ?>
+                        <p><a href="deleteRecette?recetteId=<?= $recette->recetteId ?>">Supprimer la recette</a></p>
+                        <p><a href="updateRecette?recetteId=<?= $recette->recetteId ?>">Modifier la recette</a></p>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
