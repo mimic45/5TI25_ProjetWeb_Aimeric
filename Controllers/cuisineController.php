@@ -36,3 +36,12 @@ elseif ($uri === '/createRecette') {
     $template = "Views/Component/recette/recette.php";      //chemin vers la vue demandée
     require_once("Views/base.php");                         //appel de la page de base qui sera remplie avec la vue demandée
 }
+
+elseif (isset($_GET["recetteId"]) && $uri === "/voirRecette?recetteId=" . $_GET["recetteId"]) {
+    $recette = selectOneRecette($pdo);
+    // ce n'est pas 'selectAllIngredients' mais je ne sais pas quoi mettre d'autre
+    $ingredients = selectAllIngredients($pdo);
+    $title = "Ajout d'une recette";
+    $template = "Views/recette/recette.php";
+    require_once("Views/base.php");
+}

@@ -98,15 +98,22 @@ function createRecette($pdo)
     }
 }
 
+/*
+Fonction selectOneRecette
+------------------------------
+BUT : aller rechercher les caractéristiques de la recette avtive dans la BDD
+IN : $pdo reprenant toutes les infos de connexion
+OUT : objet pdo contenant toutes les onfos concernant les recettes actives
+*/
 function selectOneRecette ($pdo)
 {
     try{
         $query = "select * from recette where recetteId = :recetteId";
         $selectRecette = $pdo->prepare($query);
         $selectRecette->execute([
-            "recetteId" => $_GET["recetteId"]
+            "recetteId" => $_GET["recetteId"]  //récupération du paramètre se trouvant dans l'adresse
         ]);
-        $recette = $selectRecette->fetch();
+        $recette = $selectRecette->fetch();    //récupération d'une recette (pas fetchAll)
         return $recette;
     } catch(PDOException $e) 
     {
@@ -156,6 +163,27 @@ function ajouterIngredientRecette($pdo, $recetteId, $ingredientId)
     } catch (\PDOException $e) {
         $message = $e->getMessage();
         die($message);
+    }
+}
+
+/*Fonction selectIngredientActifRecette
+BUT : aller rechercher dans la BDD les caractéristiques des ingrédients de la recette affichée
+IN : $pdo reprenant toutes les infos de connexion
+OUT : objet pdo contenant la liste des ingrédients de la recette affichée
+*/
+function selectIngredientActifRecette($pdo)
+{
+    try {
+        $query = 'select * from ingredient where ingredientId in (select ingredientId from ingredient where recetteId = :recetteId);';
+        $selectIngredients = $pdo->prepare($query);
+        $selectIngredients->execute([
+            'recetteId' => $_GET["recetteId"]
+        ]);
+        $ingredients = $selectIngredients->fetchAll();
+        return $ingredients;
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die ($message);
     }
 }
 
