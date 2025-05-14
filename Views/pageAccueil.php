@@ -7,6 +7,7 @@
     <h1>Liste des recettes répertoriées</h1>
 <?php endif ?>
 
+<!-- Dans le cas où on est connecté, on affiche un lien permettant l'ajout d une école -->
 <?php if (isset($_SESSION["user"])) : ?>
     <a href="../Views/Components/recette/recette.php">Ajouter une recette</a>
     <br><a href="../Views/Components/recette/recette.php">Supprimer une recette</a>
@@ -23,21 +24,11 @@
                 </div>
                 <div class="center">
                     <a href="https://www.marmiton.org/recettes/recette_soupe-tomate-rapide_94528.aspx" class="btn btn-page">Voir la recette</a>
+                    <!-- Dans le cas où on est connecté et qu'on a cliqué sur 'mes recettes', on affiche les recettes de l'utilisateur -->
                     <?php if ($uri === "/mesRecettes") : ?>
                         <p><a href="deleteRecette?recetteId=<?= $recette->recetteId ?>">Supprimer la recette</a></p>
                         <p><a href="updateRecette?recetteId=<?= $recette->recetteId ?>">Modifier la recette</a></p>
                     <?php endif ?>
-                </div>
-            </div>
-        </div>
-        <div class="border card">
-            <h2 class="center">Gateau au chocolat</h2>
-            <div>
-                <div class="flexible blocImageRecette">
-                    <img class="gateau_chocolat" src="../../Assets/Images/gateau-au-chocolat-de-cyril-lignac.jpeg" alt="image soupe tomate">
-                </div>
-                <div class="center">
-                    <a href="https://www.marmiton.org/recettes/recette_gateau-au-chocolat-fondant-rapide_166352.aspx" class="btn btn-page">Voir la recette</a>
                 </div>
             </div>
         </div>
