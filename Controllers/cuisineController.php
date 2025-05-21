@@ -24,7 +24,7 @@ elseif ($uri === '/createRecette') {
         // ajout des ingrédients liées à la recette dans la table des ingrédients
         // ne pas oublier que $_POST["ingredient"] est un tableau ! => le parcourir et faire une écriture pour chaque élément trouvé
         for ($i = 0; $i < count($_POST["ingredients"]); $i++) {
-            $ingredientId = $_POST["ingredients"] [$i];
+            $ingredientRecetteId = $_POST["ingredients"] [$i];
             // écriture dans la table des ingrédients
             ajouterIngredientRecette($pdo, $recetteId, $ingredientId); 
         }
@@ -44,4 +44,53 @@ elseif (isset($_GET["recetteId"]) && $uri === "/voirRecette?recetteId=" . $_GET[
     $title = "Ajout d'une recette";
     $template = "Views/recette/recette.php";
     require_once("Views/base.php");
+}
+
+elseif (isset($_GET["recetteId"]) && $uri === "/updateRecette?recetteId=" . $_GET["recetteId"]) {
+    if (isset($_POST['btnEnvoi'])) {
+        updateRecette($pdo);
+        deleteIngredientRecette($pdo);
+        for ($i = 0; $i < count($_POST["ingredients"]); $i++) {
+            $ingredientRecetteId = $_POST["ingredients"] [$i];
+            ajouterIngredientRecette($pdo, $_GET["recetteId"], $ingredientRecetteId);
+        }
+        header("location:/mesRecettes");
+    }
+    $recette = selectOneRecette($pdo);
+    $ingredientActifRecette = selectIngredientActifRecette($pdo);
+    $ingredients = selectAllIngredients($pdo);
+    $title = "Mise à jour d'une recette";
+    $template = "Views/recette/recette.php";
+    require_once("Views/base.php");
+}
+
+function updateRecette($dbh)
+{
+    try {
+        $query = 'update recette set recetteNom = :recetteNom, recetteTempsPrepa, recetteHistorique = :recetteHistorique, recetteImg = :recetteImg where recetteId = :recetteId';
+        $updateRecetteFromId = $dbh->prepare($query);
+        $updateRecetteFromId->execute([
+            'recetteNom' => $_POST['nom'],
+            'recetteTempsPrepa' => $_POST['temps_prepa'],
+            'recetteHistorique' => $_POST['historique'],
+            'recetteId' => $_GET["recetteId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die($message);
+    }
+}
+
+function deleteIngredientRecette($dbh)
+{
+    try{
+        $query = 'delete from ingredientRecette where recetteId = :recetteId';
+        $deleteAllRecetteFromId = $dbh->prepare($query);
+        $deleteAllRecetteFromId->execute([
+            'recetteId' => $_GET['recetteId']
+        ]);
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die($message);
+    }
 }

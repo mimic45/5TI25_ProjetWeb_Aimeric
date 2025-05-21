@@ -21,10 +21,10 @@ function selectAllRecettes($pdo)
     }
 }
 
-function deleteHistoriqueRecetteFromUser($dbh)
+function deleteIngredientRecetteFromUser($dbh)
 {
     try {
-        $query = 'delete from recetteHistorique where recetteId in (select recetteId from recette where userId = :userId)';
+        $query = 'delete from ingredient where recetteId in (select recetteId from recette where userId = :userId)';
         $deleteAllRecetteFromId = $dbh->prepare($query);
         $deleteAllRecetteFromId->execute([
             'userId' => $_SESSION["user"]->id
@@ -86,8 +86,8 @@ function createRecette($pdo)
     try {
         $query = 'insert into recette (recetteNom, recetteImage, userId)
         values (:recetteNom, :recetteImage, :userId)';
-        $addPlat = $pdo->prepare($query);
-        $addPlat->execute([
+        $addRecette = $pdo->prepare($query);
+        $addRecette->execute([
             'recetteNom' => $_POST['nom'],
             'recetteImage' => $_POST['image'],
             'userId' => $_SESSION['user']->id
@@ -184,6 +184,20 @@ function selectIngredientActifRecette($pdo)
     } catch (PDOException $e) {
         $message = $e->getMessage();
         die ($message);
+    }
+}
+
+function deleteOneRecette($pdo)
+{
+    try {
+        $query = 'delete from recette where recetteId = :recetteId';
+        $deleteAllRecetteFromId = $pdo->prepare($query);
+        $deleteAllRecetteFromId->execute([
+            'recetteId' => $_GET['recetteId']
+        ]);
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die($message);
     }
 }
 

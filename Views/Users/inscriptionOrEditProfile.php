@@ -1,6 +1,6 @@
-<?php if (isset($_SESSION['user'])) : ?>value="<?=$_SESSION['user']->userNom ?>" <?php endif ?>
 
 <div class="flex space-evenly wrap">
+    
     <form method="post" action="">
         <fieldset>
             <legend>Inscription</legend>
@@ -11,6 +11,7 @@
             <div class="mb-3">
                 <label for="Prenom" class="form-label">Prénom</label>
                 <input type="text" placeholder="Prénom" class="form-control" id="prenom" name="prenom" required <?php if (isset($_SESSION['user'])) : ?>value="<?= $_SESSION['user']->userPrenom ?>" <?php endif ?>>
+                    
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -23,6 +24,7 @@
             <div>
                 <button name="btnEnvoi" class="btn btn-primary">Envoyer</button>
             </div>
+            
         </fieldset>
     </form>
 </div>

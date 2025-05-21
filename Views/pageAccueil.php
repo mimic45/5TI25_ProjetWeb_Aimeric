@@ -11,7 +11,6 @@
 <?php if (isset($_SESSION["user"])) : ?>
     <a href="../Views/Components/recette/recette.php">Ajouter une recette</a>
     <br><a href="../Views/Components/recette/recette.php">Supprimer une recette</a>
-    <br><a href="connexion">Supprimer votre compte</a>
 <?php endif ?>
 
 <div class="flexible wrap space-around">
