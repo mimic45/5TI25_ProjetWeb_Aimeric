@@ -25,8 +25,11 @@
                     <a href="https://www.marmiton.org/recettes/recette_soupe-tomate-rapide_94528.aspx" class="btn btn-page">Voir la recette</a>
                     <!-- Dans le cas où on est connecté et qu'on a cliqué sur 'mes recettes', on affiche les recettes de l'utilisateur -->
                     <?php if ($uri === "/mesRecettes") : ?>
-                        <p><a href="deleteRecette?recetteId=<?= $recette->recetteId ?>">Supprimer la recette</a></p>
-                        <p><a href="updateRecette?recetteId=<?= $recette->recetteId ?>">Modifier la recette</a></p>
+                        <div class="flexible space-between">
+                            <p><a href="deleteRecette?recetteId=<?= $recette->recetteId ?>">Supprimer la recette</a></p>
+                            <p><a href="updateRecette?recetteId=<?= $recette->recetteId ?>">Modifier la recette</a></p>
+                        </div>
+                        
                     <?php endif ?>
                 </div>
             </div>

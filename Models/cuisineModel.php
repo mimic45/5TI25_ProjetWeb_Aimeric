@@ -1,6 +1,6 @@
 
-
 <?php 
+
 
 function selectAllRecettes($pdo)
 {
@@ -48,6 +48,8 @@ function deleteAllRecetteFromUser($pdo)
         die($message);
     }
 }
+
+
 function selectMyRecette($pdo)
 {
 /*
@@ -187,6 +189,40 @@ function selectIngredientActifRecette($pdo)
     }
 }
 
+
+
+function updateRecette($dbh)
+{
+    try {
+        $query = 'update recette set recetteNom = :recetteNom, recetteTempsPrepa, recetteHistorique = :recetteHistorique, recetteImg = :recetteImg where recetteId = :recetteId';
+        $updateRecetteFromId = $dbh->prepare($query);
+        $updateRecetteFromId->execute([
+            'recetteNom' => $_POST['nom'],
+            'recetteTempsPrepa' => $_POST['temps_prepa'],
+            'recetteHistorique' => $_POST['historique'],
+            'recetteImage' => $_POST["image"],
+            'recetteId' => $_GET["recetteId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die($message);
+    }
+}
+
+function deleteIngredientRecette($dbh)
+{
+    try{
+        $query = 'delete from ingredientRecette where recetteId = :recetteId';
+        $deleteAllRecetteFromId = $dbh->prepare($query);
+        $deleteAllRecetteFromId->execute([
+            'recetteId' => $_GET['recetteId']
+        ]);
+    } catch (PDOException $e) {
+        $message = $e->getMessage();
+        die($message);
+    }
+}
+
 function deleteOneRecette($pdo)
 {
     try {
@@ -200,4 +236,3 @@ function deleteOneRecette($pdo)
         die($message);
     }
 }
-

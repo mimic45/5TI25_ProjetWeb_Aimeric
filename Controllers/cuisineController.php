@@ -64,33 +64,10 @@ elseif (isset($_GET["recetteId"]) && $uri === "/updateRecette?recetteId=" . $_GE
     require_once("Views/base.php");
 }
 
-function updateRecette($dbh)
-{
-    try {
-        $query = 'update recette set recetteNom = :recetteNom, recetteTempsPrepa, recetteHistorique = :recetteHistorique, recetteImg = :recetteImg where recetteId = :recetteId';
-        $updateRecetteFromId = $dbh->prepare($query);
-        $updateRecetteFromId->execute([
-            'recetteNom' => $_POST['nom'],
-            'recetteTempsPrepa' => $_POST['temps_prepa'],
-            'recetteHistorique' => $_POST['historique'],
-            'recetteId' => $_GET["recetteId"]
-        ]);
-    } catch (PDOException $e) {
-        $message = $e->getMessage();
-        die($message);
-    }
+elseif (isset($_GET["recetteId"]) && $uri === "/deleteRecette?recetteId=" . $_GET["recetteId"]) {
+    deleteIngredientRecette($pdo);
+    deleteOneRecette($pdo);
+    header("location:/recette");
 }
 
-function deleteIngredientRecette($dbh)
-{
-    try{
-        $query = 'delete from ingredientRecette where recetteId = :recetteId';
-        $deleteAllRecetteFromId = $dbh->prepare($query);
-        $deleteAllRecetteFromId->execute([
-            'recetteId' => $_GET['recetteId']
-        ]);
-    } catch (PDOException $e) {
-        $message = $e->getMessage();
-        die($message);
-    }
-}
+

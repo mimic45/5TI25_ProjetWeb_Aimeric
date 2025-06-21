@@ -77,7 +77,7 @@ function updateSession($pdo)
     }
 }
 
-function DeleteUser($pdo)
+function deleteUser($pdo)
 {
     try {
         $query = 'delete from user where userid = :userid';
